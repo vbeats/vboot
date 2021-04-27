@@ -1,0 +1,87 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
+plugins {
+    id 'java-library'
+    id 'org.springframework.boot' version "${SpringBootVersion}"
+    id 'io.spring.dependency-management' version "${DependencyManagement}"
+}
+
+apply from: 'version.gradle'
+
+allprojects {
+    group 'com.bootvue'
+    version '1.0.0'
+
+    repositories {
+        maven {
+            url 'https://maven.aliyun.com/repository/public/'
+        }
+        mavenCentral()
+    }
+
+}
+
+subprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'io.spring.dependency-management'
+
+    dependencyManagement {
+        imports {
+            mavenBom SpringBootPlugin.BOM_COORDINATES
+        }
+    }
+
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+    jar {
+        enabled = true
+    }
+    bootJar {
+        enabled = false
+    }
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+        testImplementation('org.springframework.boot:spring-boot-starter-test') {
+            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        }
+    }
+    test {
+        useJUnitPlatform()
+    }
+
+    if (project.name == 'web') {
+        apply plugin: 'org.springframework.boot'
+
+        bootJar {
+            enabled = true
+            mainClassName = "com.bootvue.WebApplication"
+            destinationDirectory = file(getRootProject().getBuildDir())
+            archiveFileName = 'app.jar'
+        }
+    }
+
+    task copyResources(type: Copy) {
+        from "${project(':core').projectDir}/src/main/resources"
+        into "${project.buildDir}/resources/main"
+        exclude '**/rebel.xml'
+        includeEmptyDirs = true
+    }
+
+    afterEvaluate {
+        tasks.matching {
+            t -> t.name.startsWith('process')
+        }.each { it.dependsOn(copyResources) }
+    }
+}

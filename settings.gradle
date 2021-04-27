@@ -1,0 +1,5 @@
+rootProject.name = 'vboot'
+include 'core'
+include 'auth'
+include 'web'
+

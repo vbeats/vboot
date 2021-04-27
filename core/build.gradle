@@ -1,0 +1,33 @@
+plugins {
+    id "org.flywaydb.flyway" version "${FlywayPluginVersion}"
+}
+
+dependencies {
+    api 'org.springframework.boot:spring-boot-starter'
+    api 'org.springframework.boot:spring-boot-starter-web'
+    api 'org.springframework.boot:spring-boot-starter-aop'
+    api 'org.springframework.boot:spring-boot-starter-validation'
+    api("org.redisson:redisson-spring-boot-starter:${rootProject.RedissonVersion}")
+
+    api libs.get('fastjson')
+    api libs.get('mysql')
+    api libs.get('mybatis')
+    api libs.get('mybatis-plus')
+    api libs.get('httpmime')
+    api libs.get('hutool')
+    api libs.get('commons-text')
+    api libs.get('commons-fileupload')
+    api libs.get('commons-pool2')
+    api libs.get('okhttp')
+    api libs.get('commons-io')
+    api libs.get('guava')
+    api libs.get('spring-fox')
+    api libs.get('java-jwt')
+    api libs.get('jjwt')
+    api libs.get('jjwt-impl')
+    api libs.get('flyway')
+    api libs.get('jaxbApi')
+    api libs.get('jaxbImpl')
+    api libs.get('jaxbCore')
+    api libs.get('activation')
+}

@@ -1,0 +1,67 @@
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.100.80:3306/vboot?characterEncoding=UTF-8&useSSL=false&autoReconnect=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    hikari:
+      pool-name: vboot
+      maximum-pool-size: 25
+      max-lifetime: 1500000
+      validation-timeout: 1000
+      minimum-idle: 20
+  redis:
+    host: 192.168.100.80
+    port: 6379
+    connect-timeout: 1000
+    timeout: 1000
+    lettuce:
+      pool:
+        min-idle: 5
+        max-active: 8
+
+# 自定义配置
+vboot:
+  swagger: true
+  skip-urls:
+    - /auth/**
+    - /**/swagger*/**
+    - /**/v3/**
+  public-key: |-
+    -----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4iT9ioC3LP6BS0YA9oHq
+    DWENBErDLK3tV12qYMnCDT3lA/n7rhbhLOjxBE3c7MumcsfZShlL9Evp9c6bcQ5p
+    xOj9c18sq58Rzmm8nm1CVGqTr3l3xQvNkESaUjY4Mw+pK1ycDgwiSrDbApUp018T
+    El7TnPFRVRit9RJ6rgPQmZFsunB8pA8a9qMYdhq5wdY082TGghdhGg8RvqV4t71t
+    WfoS6gR8CwNiY+j8YHWhsOTJ+YD7zydQ6itLNaHbkfJW3bdOuvcJJz4nw9nYqLDI
+    0MczXWsDh8u+gyavIn+oFD76XEc5pinhphVWLDFV1Zm/o+1HxWGvNmCGQx72wmVx
+    GQIDAQAB
+    -----END PUBLIC KEY-----
+  private-key: |-
+    -----BEGIN PRIVATE KEY-----
+    MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDiJP2KgLcs/oFL
+    RgD2geoNYQ0ESsMsre1XXapgycINPeUD+fuuFuEs6PEETdzsy6Zyx9lKGUv0S+n1
+    zptxDmnE6P1zXyyrnxHOabyebUJUapOveXfFC82QRJpSNjgzD6krXJwODCJKsNsC
+    lSnTXxMSXtOc8VFVGK31EnquA9CZkWy6cHykDxr2oxh2GrnB1jTzZMaCF2EaDxG+
+    pXi3vW1Z+hLqBHwLA2Jj6PxgdaGw5Mn5gPvPJ1DqK0s1oduR8lbdt0669wknPifD
+    2diosMjQxzNdawOHy76DJq8if6gUPvpcRzmmKeGmFVYsMVXVmb+j7UfFYa82YIZD
+    HvbCZXEZAgMBAAECggEBAISEsJ5s9upC6Xk2uHG7h2/3oy0UsnKIKUC8/o5hLHmd
+    /4no/3bwqVsr1bB0ADYy0IMKYWZulHe/1IXaYHRLwedFsN/escqQGFsg0wrzc58M
+    JSb6wxiQ5hDYYqYyZ5RkZPmn9zq0GZQzNuO4jR3z5LUrJE4fi02WfLnT7lfynFag
+    K0/ltBf99U8BVpAg3thDE3hRDnaTsimMXZgFXCSBtRH42TN3LwqNtXHECzoj+qeM
+    chm8d8BLqsXOuT0C9lrFl+F45W2sXgr2n9YGhXnCdtESL4HvQlSABzgtieWO8ng3
+    8wAgb8ulexhfFiAVNJ7Uceufi0CSWIy4xJMX9VqFBZECgYEA9R+Qu/aNGugLhe7L
+    w+SGROAOhi5qjvSrBU0HlBvltbVu2aZpJVVbpuVVnPc9S7AEIRn3oVIm/kN/PeJm
+    +AdYi5oAbLzAW3YHpKg2KswnqmMrB5mqvrWRY79IExAqA1jsvKpUh2bWXORdAcyi
+    EG9aELM6TMfkg7V2kvYemJR16QMCgYEA7C3Wr95DK+LRqZwVWLoF664XMwYmFVSs
+    +uV6dKJ4OTRozl3QmLDuQiaMWn2EPiR0BR2enxAOdf9fc/ucdMtym2i3+7uzrkGz
+    Oia3QPbacJv/n5d/SYQBzWRNF0qdy7hKx8Kd4QPpHIPmCqBiT6Na9JzOBm2gaYDa
+    DNGtad5NLLMCgYEAzf8s/wmAI/CGXpQEIihWvmMdUZ6IZoMvhlDp4YpgTYigE8FJ
+    89n8IBHzFOqiVI0jqz3LYYNMybmnoTY3GpHx08AkQz2M2lAitDm469aOLx8P9l8p
+    owOrn4wM4hhfdliw+wyZ5QCDfaVclDqIqA8sPYShpg0G+bjyYSb9J3T8ckkCgYAE
+    TYl9xsTehdFgD7Hr3efBtXhCu7fx54sHPysN+O/LywKlz9u/DGoq1lz0QRkpsKxU
+    c4eySi6ZQ7/PcyQUlKhP4IaJlY/eet/zDUWFb3nnV1A+7hmpkzgdL9iftgJN9duW
+    7BrIQLP8iwKj6uwfm1BK6JhwUYr8oRZX6XIJXb12NQKBgHDHINs/Gfb5DvzjNfBz
+    nJuwtBw2qhrhzVc9zDj/uV8C8GSZ0NQuNnxcTu02TfeUM6CBwtExmd4je/STV/oO
+    csrlk1PiWV8iR+vsN/91btg2LuvPDm6dTp+bvdoxu9dSuzpk1Lqfify2l95YNcKK
+    pTockFrsoNtgdLpz/w31PE3Z
+    -----END PRIVATE KEY-----
