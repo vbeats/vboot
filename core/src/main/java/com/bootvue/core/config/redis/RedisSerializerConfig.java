@@ -1,4 +1,4 @@
-package com.bootvue.core.config;
+package com.bootvue.core.config.redis;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

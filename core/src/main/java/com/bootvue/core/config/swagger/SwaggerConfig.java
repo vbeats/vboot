@@ -1,4 +1,4 @@
-package com.bootvue.core.config;
+package com.bootvue.core.config.swagger;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ import springfox.documentation.service.ParameterType;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 
 @Configuration
@@ -30,6 +30,28 @@ public class SwaggerConfig {
                 .genericModelSubstitutes(ResponseEntity.class)
                 .useDefaultResponseMessages(false)
                 .enableUrlTemplating(false)
+                .globalRequestParameters(
+                        new ArrayList<>() {{
+                            add(
+                                    new RequestParameterBuilder()
+                                            .name("appid")
+                                            .description("客户端appid")
+                                            .in(ParameterType.QUERY)
+                                            .query(q -> q.model(m -> m.scalarModel(ScalarType.STRING)))
+                                            .required(true)
+                                            .build()
+                            );
+                            add(
+                                    new RequestParameterBuilder()
+                                            .name("secret")
+                                            .description("客户端secret")
+                                            .in(ParameterType.QUERY)
+                                            .query(q -> q.model(m -> m.scalarModel(ScalarType.STRING)))
+                                            .required(true)
+                                            .build()
+                            );
+                        }}
+                )
                 .apiInfo(new ApiInfoBuilder()
                         .title("vboot 接口文档")
                         .version("1.0.0")

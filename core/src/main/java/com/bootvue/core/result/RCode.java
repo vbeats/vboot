@@ -1,4 +1,4 @@
-package com.bootvue.core.util;
+package com.bootvue.core.result;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

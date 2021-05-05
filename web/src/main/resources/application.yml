@@ -15,6 +15,8 @@ spring:
     locations:
       - classpath:db/migration
     clean-disabled: true
+  jpa:
+    open-in-view: false
 logging:
   config: classpath:logback.xml
 mybatis-plus:

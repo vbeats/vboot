@@ -1,34 +1,73 @@
 package com.bootvue.core.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@ToString
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("`user`")
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = -5369333626804856566L;
+
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @TableField(value = "username")
-    private String username;  // 用户名
+    /**
+     * 用户名
+     */
+    private String username;
 
-    @TableField(value = "`password`")
-    private String password;  // 密码
+    /**
+     * 密码
+     */
+    private String password;
 
-    @TableField(value = "create_time")
+    /**
+     * 租户id
+     */
+    private Long tenantId;
+
+    /**
+     * 角色id
+     */
+    private Long roleId;
+
+    /**
+     * 手机号
+     */
+    private String phone;
+
+    /**
+     * 小程序openid
+     */
+    private String openid;
+
+    /**
+     * 昵称
+     */
+    private String nickname;
+
+    /**
+     * 头像
+     */
+    private String avatar;
+
+    /**
+     * 账号状态 0:禁用  1:正常
+     */
+    private Boolean status;
+
     private LocalDateTime createTime;
 
-    @TableField(value = "delete_time")
+    private LocalDateTime updateTime;
+
     private LocalDateTime deleteTime;
+
 }

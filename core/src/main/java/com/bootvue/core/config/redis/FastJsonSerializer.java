@@ -1,4 +1,4 @@
-package com.bootvue.core.config;
+package com.bootvue.core.config.redis;
 
 
 import com.alibaba.fastjson.JSON;

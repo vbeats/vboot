@@ -1,7 +1,7 @@
 package com.bootvue.core.exception;
 
-import com.bootvue.core.util.R;
-import com.bootvue.core.util.RCode;
+import com.bootvue.core.result.R;
+import com.bootvue.core.result.RCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

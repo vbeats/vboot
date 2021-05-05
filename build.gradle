@@ -61,12 +61,12 @@ subprojects {
         useJUnitPlatform()
     }
 
-    if (project.name == 'web') {
+    if (project.name != 'core' && project.name != 'auth') {
         apply plugin: 'org.springframework.boot'
 
         bootJar {
             enabled = true
-            mainClassName = "com.bootvue.WebApplication"
+            mainClass.set("com.bootvue." + project.name.substring(0, 1).toUpperCase() + project.name.substring(1) + "Application")
             destinationDirectory = file(getRootProject().getBuildDir())
             archiveFileName = 'app.jar'
         }

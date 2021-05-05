@@ -1,10 +1,11 @@
 package com.bootvue.auth.controller;
 
 import com.bootvue.auth.service.AuthService;
+import com.bootvue.auth.vo.AuthResponse;
 import com.bootvue.auth.vo.CaptchaResponse;
 import com.bootvue.auth.vo.Credentials;
-import com.bootvue.auth.vo.TokenOut;
-import com.bootvue.core.util.R;
+import com.bootvue.auth.vo.PhoneParams;
+import com.bootvue.core.result.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -25,16 +26,23 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/token")
-    @ApiOperation("获取token")
-    private TokenOut token(@RequestBody @Valid Credentials credentials, BindingResult result) {
+    @ApiOperation("用户认证 获取token/刷新token")
+    private AuthResponse authentication(@RequestBody @Valid Credentials credentials, BindingResult result) {
         R.handleErr(result);
-        return authService.token(credentials);
+        return authService.authentication(credentials);
     }
 
     @ApiOperation("获取图形验证码")
     @GetMapping("/captcha")
     public CaptchaResponse captcha() {
         return authService.createCaptcha();
+    }
+
+    @ApiOperation("获取短信验证码")
+    @PostMapping("/sms")
+    public void smsCode(@RequestBody @Valid PhoneParams phoneParams, BindingResult result) {
+        R.handleErr(result);
+        authService.handleSmsCode(phoneParams);
     }
 
 }

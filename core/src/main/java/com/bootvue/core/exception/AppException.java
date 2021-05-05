@@ -1,6 +1,6 @@
 package com.bootvue.core.exception;
 
-import com.bootvue.core.util.RCode;
+import com.bootvue.core.result.RCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

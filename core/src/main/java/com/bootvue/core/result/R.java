@@ -1,4 +1,4 @@
-package com.bootvue.core.util;
+package com.bootvue.core.result;
 
 import com.bootvue.core.exception.AppException;
 import com.fasterxml.jackson.annotation.JsonInclude;

@@ -1,24 +1,22 @@
 package com.bootvue.core.web;
 
 import com.alibaba.fastjson.JSON;
-import com.bootvue.core.config.AppConfig;
-import com.bootvue.core.constant.AppConst;
+import com.bootvue.core.config.app.AppConfig;
+import com.bootvue.core.config.app.Key;
 import com.bootvue.core.exception.AppException;
 import com.bootvue.core.modle.UserInfo;
+import com.bootvue.core.result.R;
+import com.bootvue.core.result.RCode;
 import com.bootvue.core.util.AppContextHolder;
 import com.bootvue.core.util.JwtUtil;
-import com.bootvue.core.util.R;
-import com.bootvue.core.util.RCode;
 import io.jsonwebtoken.Claims;
 import io.netty.util.CharsetUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.AntPathMatcher;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.PathMatcher;
-import org.springframework.util.StringUtils;
+import org.springframework.stereotype.Component;
+import org.springframework.util.*;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -29,7 +27,8 @@ import java.io.PrintWriter;
 
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-@WebFilter(filterName = "appFilter", urlPatterns = "/*")
+@WebFilter
+@Component
 public class AppFilter implements Filter {
     private static final PathMatcher PATH_MATCHER = new AntPathMatcher();
 
@@ -46,6 +45,22 @@ public class AppFilter implements Filter {
 
                 for (String skipUrl : appConfig.getSkipUrls()) {
                     if (PATH_MATCHER.match(skipUrl, path)) {
+                        if (path.startsWith("/auth")) {
+                            // 检查客户端Key
+                            String appid = servletRequest.getParameter("appid");
+                            String secret = servletRequest.getParameter("secret");
+                            if (!StringUtils.hasText(appid) || !StringUtils.hasText(secret)) {
+                                throw new AppException(RCode.PARAM_ERROR.getCode(), "客户端参数无效");
+                            }
+                            Key key = appConfig.getAuthKey().stream()
+                                    .filter(it -> it.getAppId().equals(appid)
+                                            && it.getSecret().equals(secret))
+                                    .findAny().orElse(null);
+
+                            if (ObjectUtils.isEmpty(key)) {
+                                throw new AppException(RCode.PARAM_ERROR.getCode(), "客户端参数无效");
+                            }
+                        }
                         chain.doFilter(request, response);
                         return;
                     }
@@ -54,7 +69,7 @@ public class AppFilter implements Filter {
 
             // 校验token
 
-            String token = servletRequest.getHeader(AppConst.TOKEN);
+            String token = servletRequest.getHeader("token");
             if (!StringUtils.hasText(token) || !JwtUtil.isVerify(token)) {
                 throw new AppException(RCode.UNAUTHORIZED_ERROR);
             }

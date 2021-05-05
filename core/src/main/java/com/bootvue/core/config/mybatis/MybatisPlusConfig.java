@@ -1,4 +1,4 @@
-package com.bootvue.core.config;
+package com.bootvue.core.config.mybatis;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
