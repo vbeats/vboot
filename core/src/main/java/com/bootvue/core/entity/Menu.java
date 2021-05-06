@@ -23,12 +23,6 @@ public class Menu {
     private Long id;
 
     /**
-     * 租户id
-     */
-    @TableField(value = "tenant_id")
-    private Long tenantId;
-
-    /**
      * 菜单名称
      */
     @TableField(value = "title")

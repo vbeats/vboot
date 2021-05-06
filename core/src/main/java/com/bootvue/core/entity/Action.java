@@ -23,19 +23,13 @@ public class Action {
     private Long id;
 
     /**
-     * 租户id
-     */
-    @TableField(value = "tenant_id")
-    private Long tenantId;
-
-    /**
      * api path路径
      */
     @TableField(value = "api")
     private String api;
 
     /**
-     * list/update/delete/add
+     * 按钮:list/update/delete/add
      */
     @TableField(value = "`action`")
     private String action;

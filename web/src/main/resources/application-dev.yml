@@ -26,6 +26,8 @@ vboot:
     - /auth/**
     - /**/swagger*/**
     - /**/v3/**
+  authorization-urls:
+    - /admin/**
   auth-key:
     - app-id: web
       secret: 6842224b-7ddb-4c63-af62-1db58d77b2a5
@@ -174,5 +176,8 @@ vboot:
         -----END PRIVATE KEY-----
   cache:
     - cache-name: user
+      ttl: 1800000
+      max-idle-time: 1200000
+    - cache-name: action
       ttl: 1800000
       max-idle-time: 1200000

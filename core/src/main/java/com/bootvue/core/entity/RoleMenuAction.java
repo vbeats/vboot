@@ -4,12 +4,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+
+import java.io.Serializable;
 
 @Getter
 @Setter
@@ -17,16 +14,17 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName(value = "user_menu")
-public class UserMenu {
+@TableName(value = "role_menu_action")
+public class RoleMenuAction implements Serializable {
+    private static final long serialVersionUID = 5003718427400535244L;
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
-     * 用户 id
+     * 角色id
      */
-    @TableField(value = "user_id")
-    private Long userId;
+    @TableField(value = "role_id")
+    private Long roleId;
 
     /**
      * menu id
@@ -35,8 +33,8 @@ public class UserMenu {
     private Long menuId;
 
     /**
-     * action id ,分隔
+     * action id ,分隔 0表示可以查看菜单(list) -1不可以查看
      */
-    @TableField(value = "actions")
-    private String actions;
+    @TableField(value = "action_ids")
+    private String actionIds;
 }

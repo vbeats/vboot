@@ -1,4 +1,4 @@
-package com.bootvue.auth.vo;
+package com.bootvue.auth.dto;
 
 import com.bootvue.core.constant.AppConst;
 import io.swagger.annotations.ApiModel;

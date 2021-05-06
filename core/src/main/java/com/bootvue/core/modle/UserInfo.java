@@ -14,5 +14,6 @@ import java.io.Serializable;
 public class UserInfo implements Serializable {
     private static final long serialVersionUID = -6075560938960256074L;
     private Long userId;
+    private Long roleId;
     private String username;
 }

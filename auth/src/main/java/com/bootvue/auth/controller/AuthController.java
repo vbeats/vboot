@@ -1,10 +1,10 @@
 package com.bootvue.auth.controller;
 
 import com.bootvue.auth.service.AuthService;
-import com.bootvue.auth.vo.AuthResponse;
-import com.bootvue.auth.vo.CaptchaResponse;
-import com.bootvue.auth.vo.Credentials;
-import com.bootvue.auth.vo.PhoneParams;
+import com.bootvue.auth.dto.AuthResponse;
+import com.bootvue.auth.dto.CaptchaResponse;
+import com.bootvue.auth.dto.Credentials;
+import com.bootvue.auth.dto.PhoneParams;
 import com.bootvue.core.result.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

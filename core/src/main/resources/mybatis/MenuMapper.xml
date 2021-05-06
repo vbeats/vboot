@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bootvue.core.mapper.MenuMapper">
-  <resultMap id="BaseResultMap" type="com.bootvue.core.entity.Menu">
-    <!--@mbg.generated-->
-    <!--@Table menu-->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="tenant_id" jdbcType="BIGINT" property="tenantId" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="sort" jdbcType="INTEGER" property="sort" />
-    <result column="key" jdbcType="VARCHAR" property="key" />
-    <result column="path" jdbcType="VARCHAR" property="path" />
-    <result column="icon" jdbcType="VARCHAR" property="icon" />
-    <result column="p_id" jdbcType="BIGINT" property="pId" />
-    <result column="default_select" jdbcType="BOOLEAN" property="defaultSelect" />
-    <result column="default_open" jdbcType="BOOLEAN" property="defaultOpen" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    id, tenant_id, title, sort, `key`, `path`, icon, p_id, default_select, default_open
-  </sql>
+    <select id="getMenuList" resultType="com.bootvue.core.ddo.MenuDo">
+        SELECT m.*,
+               rma.action_ids
+        FROM `user` u,
+             role_menu_action rma,
+             menu m
+        WHERE u.id = #{user_id}
+          AND rma.role_id = #{role_id}
+          AND m.id = rma.menu_id
+          AND m.p_id = #{p_id}
+        ORDER BY m.sort ASC
+    </select>
 </mapper>

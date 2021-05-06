@@ -18,6 +18,7 @@ public class AppConfig {
 
     private boolean swagger;  // 是否开启swagger
     private Set<String> skipUrls; // 直接放行的url
+    private Set<String> authorizationUrls; // 需要权限验证的接口
     private Set<Key> authKey; // 客户端密钥等参数
     private Set<Cache> cache; // redis spring cache 缓存
 

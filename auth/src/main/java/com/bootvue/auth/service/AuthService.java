@@ -1,9 +1,9 @@
 package com.bootvue.auth.service;
 
-import com.bootvue.auth.vo.AuthResponse;
-import com.bootvue.auth.vo.CaptchaResponse;
-import com.bootvue.auth.vo.Credentials;
-import com.bootvue.auth.vo.PhoneParams;
+import com.bootvue.auth.dto.AuthResponse;
+import com.bootvue.auth.dto.CaptchaResponse;
+import com.bootvue.auth.dto.Credentials;
+import com.bootvue.auth.dto.PhoneParams;
 
 public interface AuthService {
     AuthResponse authentication(Credentials credentials);

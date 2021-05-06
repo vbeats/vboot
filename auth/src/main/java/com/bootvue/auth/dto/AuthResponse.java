@@ -1,4 +1,4 @@
-package com.bootvue.auth.vo;
+package com.bootvue.auth.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Setter
 @Getter
@@ -31,4 +33,8 @@ public class AuthResponse {
 
     @ApiModelProperty(notes = "昵称")
     private String nickname;
+
+
+    @ApiModelProperty(notes = "菜单权限")
+    private List<MenuOut> menus;
 }

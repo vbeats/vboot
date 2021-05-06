@@ -28,18 +28,20 @@ xxx: 其它模块
 
   `access_token`: `7200s` `refresh_token`: `20d`
 
-  ```json
-  {
+```json
+
+{
   "user_id": 1,
-  "tenant_code": "000000",
   "username": "admin",
+  "role_id": 1,
   "type": "access_token",
-  "jti": "xxxxx",
-  "iat": 1610961974,
+  "jti": "cfd22c99-e0b8-4e98-a8af-xxoo",
+  "iat": 1620210580,
   "sub": "vboot",
-  "exp": 1610969174
-  }
-  ```
+  "exp": 1620217779
+}
+
+```
 
 ## FAQ
 
@@ -61,15 +63,16 @@ xxx: 其它模块
 
 - refresh_token: `20d` 每次与access_token同步刷新
 
-- `AppContextHolder` 绑定了`user_id` `username`
-
-- 非后台管理员类型用户 `role_id`为0
+- `AppContextHolder` 绑定了`user_id` `role_id` `username`
 
 - 所有用到的cache缓存都要在config.yaml自定义配置中指定 包括 `ttl` `maxIdleTime` 如果没有配置或都为0 缓存不过期
 
 - 图形验证码无法生成的 系统需要安装字体库
 
 - 数据库已有表, flyway sql要从>1的version开始 例如:V2
+
+- 数据初始化: 每个租户`role`表至少有一个超级管理员的角色,`menu`表填充所有的菜单信息,
+  `action`填写所有需要做权限控制的接口信息,`role_menu_action`初始分配租户超级管理员的菜单接口对应关系
 
 ```yaml
 # 自定义配置
@@ -94,6 +97,61 @@ vboot:
     - cache-name: xxx  # 实际存储为cache:xxx
       ttl: 1800000      #  毫秒
       max-idle-time: 1200000  #毫秒
+```
+
+## 菜单权限
+
+> 一个用户只能属于一个role角色, 我定的, 咋的了
+
+> permissions 字段格式 ["按钮:add,list,update,delete"]或["list"] (菜单是否可以查看)
+
+> 按钮非特指, 对应前端当前页面下同类型的所有按钮, 需要前后端约定好
+
+- 非后台管理员类型用户 `user role_id`为0
+
+- 二级菜单父一级 `permissions` ["list"]或者没有, 对应 `role_menu_action actions`字段, 0(有查看权限)/-1(没有查看权限)
+
+```json
+{
+  "menus": [
+    {
+      "key": "index",
+      "icon": "HomeOutlined",
+      "title": "首页",
+      "default_select": true,
+      "permissions": [
+        "index:list"
+      ]
+    },
+    {
+      "key": "system",
+      "icon": "MailOutlined",
+      "title": "系统设置",
+      "default_open": true,
+      "permissions": [
+        "list"
+      ],
+      "children": [
+        {
+          "key": "user",
+          "title": "用户管理",
+          "permissions": [
+            "user:list,update,add,delete",
+            "role:list,update,add,delete"
+          ]
+        },
+        {
+          "key": "role",
+          "title": "角色管理",
+          "permissions": [
+            "role:list,update,add,delete",
+            "action:list,update,add,delete"
+          ]
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ## todo

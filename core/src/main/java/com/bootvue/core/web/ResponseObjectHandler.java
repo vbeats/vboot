@@ -32,6 +32,7 @@ public class ResponseObjectHandler implements HandlerMethodReturnValueHandler {
         } else {
             result = (R) returnValue;
         }
+        
         this.requestResponseBodyMethodProcessor.handleReturnValue(result, returnType, mavContainer, webRequest);
     }
 }
