@@ -16,7 +16,7 @@ public class Token implements Serializable {
 
     private Long userId;
     private String username;
-    private String tenantId;
+    private Long tenantId;
     private String type;  // token类型   access_token | refresh_token
     private Long roleId; //角色id
 }

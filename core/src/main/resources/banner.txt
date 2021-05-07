@@ -1,0 +1,8 @@
+${AnsiColor.BRIGHT_CYAN}██╗   ██╗${AnsiColor.BLUE}██████╗  ██████╗  ██████╗ ████████╗
+${AnsiColor.BRIGHT_CYAN}██║   ██║${AnsiColor.BLUE}██╔══██╗██╔═══██╗██╔═══██╗╚══██╔══╝
+${AnsiColor.BRIGHT_CYAN}██║   ██║${AnsiColor.BLUE}██████╔╝██║   ██║██║   ██║   ██║
+${AnsiColor.BRIGHT_CYAN}╚██╗ ██╔╝${AnsiColor.BLUE}██╔══██╗██║   ██║██║   ██║   ██║
+${AnsiColor.BRIGHT_CYAN} ╚████╔╝ ${AnsiColor.BLUE}██████╔╝╚██████╔╝╚██████╔╝   ██║
+${AnsiColor.BRIGHT_CYAN}  ╚═══╝  ${AnsiColor.BLUE}╚═════╝  ╚═════╝  ╚═════╝    ╚═╝
+
+${AnsiColor.BLUE}VBoot :: ${spring.application.name} :: ${AnsiColor.BRIGHT_BLACK}Profile ${AnsiColor.RED}${spring.profiles.active}${AnsiColor.BLUE} :: Running SpringBoot ${spring-boot.version} :: ${AnsiColor.BRIGHT_BLACK} starting.....

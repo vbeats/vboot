@@ -16,7 +16,6 @@ import com.bootvue.core.util.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.google.common.base.Splitter;
-import com.google.common.base.Stopwatch;
 import io.jsonwebtoken.Claims;
 import io.netty.util.CharsetUtil;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +35,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -52,7 +50,6 @@ public class AppFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        Stopwatch stopwatch = Stopwatch.createStarted();
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse servletResponse = (HttpServletResponse) response;
         XssHttpServletRequestWrapper requestWrapper = new XssHttpServletRequestWrapper(httpServletRequest);
@@ -109,7 +106,6 @@ public class AppFilter implements Filter {
         } catch (Exception e) {
             handleResponse(RCode.DEFAULT.getCode(), RCode.DEFAULT.getMsg(), servletResponse);
         } finally {
-            log.info("AppFilter拦截器处理耗时: {}s", stopwatch.stop().elapsed(TimeUnit.SECONDS));
             AppContextHolder.remove();
         }
     }

@@ -82,9 +82,9 @@ VALUES (1, '首页', 0, 'index', '/index', 'HomeOutlined', 0, 1, 0);
 INSERT INTO `menu`
 VALUES (2, '系统设置', 100, 'setting', '/', 'SettingOutlined', 0, 0, 1);
 INSERT INTO `menu`
-VALUES (3, '用户管理', 101, 'user', '/user', 'UserOutlined', 2, 0, 0);
+VALUES (3, '用户管理', 101, 'user', '/user', '', 2, 0, 0);
 INSERT INTO `menu`
-VALUES (4, '角色管理', 102, 'role', '/role', 'GoldOutlined', 2, 0, 0);
+VALUES (4, '角色管理', 102, 'role', '/role', '', 2, 0, 0);
 
 -- ----------------------------
 -- Table structure for role

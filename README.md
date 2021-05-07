@@ -80,6 +80,8 @@ vboot:
   swagger: true
   skip-urls:
     - /auth/oauth/**
+  authorization-urls:
+    - /admin/**
   auth-key:
     - appid: sysWeb
       secret: 6842224b-7ddb-4c63-af62-1db58d77b2a5
@@ -156,4 +158,16 @@ vboot:
 
 ## todo
 
-- [ ] xxx
+- [ ] 日常升级
+
+## Demo
+
+<table>
+    <tr>
+        <td><img src="https://cdn.jsdelivr.net/gh/boot-vue/pics@main/vboot/1.png"></td>
+        <td><img src="https://cdn.jsdelivr.net/gh/boot-vue/pics@main/vboot/2.png"></td>
+    </tr>
+    <tr>
+        <td><img src="https://cdn.jsdelivr.net/gh/boot-vue/pics@main/vboot/3.png"></td>
+    </tr>
+</table>
