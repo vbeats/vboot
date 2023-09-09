@@ -1,0 +1,125 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
+plugins {
+    id 'java-library'
+    id 'org.springframework.boot' version "${SpringBootVersion}"
+    id 'io.spring.dependency-management' version "${DependencyManagement}"
+    id 'org.graalvm.buildtools.native' version "${GraalVersion}"
+}
+
+apply from: 'version.gradle'
+
+configure(allprojects) {
+    group 'com.codestepfish'
+    version '1.0.0'
+
+    repositories {
+        maven {
+            url 'https://maven.aliyun.com/repository/public/'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/central'
+        }
+        mavenCentral()
+    }
+}
+
+configure(subprojects) {
+    def folders = ['common', 'service']
+    if (folders.contains(project.name)) {
+        return
+    }
+
+    apply plugin: 'java-library'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.graalvm.buildtools.native'
+
+    dependencyManagement {
+        imports {
+            mavenBom SpringBootPlugin.BOM_COORDINATES
+        }
+    }
+
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+    compileJava.options.compilerArgs.addAll(['-parameters'])
+
+    jar {
+        enabled = true
+    }
+
+    bootJar {
+        enabled = false
+    }
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+
+        all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+        all*.exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-core'
+        all*.exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-websocket'
+        all*.exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-el'
+        all*.exclude group: 'commons-logging', module: 'commons-logging'
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testCompileOnly 'org.projectlombok:lombok'
+        testAnnotationProcessor 'org.projectlombok:lombok'
+        testAnnotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    }
+
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
+
+    // **************************** common模块 ****************************
+    def commonModules = ['core', 'datasource', 'redis', 'web', 'auth']
+    if (commonModules.contains(project.name)) {
+        return
+    }
+
+    // *************************** service模块  打包入口*****************************
+
+    apply plugin: 'org.springframework.boot'
+
+    bootJar {
+        enabled = true
+        // springboot application 命名规范: group.项目名(首字母大写)Application
+        mainClass.set(rootProject.group + "." + project.name.substring(0, 1).toUpperCase() + project.name.substring(1) + "Application")
+        destinationDirectory = file(getRootProject().getBuildDir())
+        archiveFileName = project.name + '.jar'
+    }
+
+    dependencies {
+        implementation project(":common:core")
+    }
+
+    task copyResources(type: Copy) {
+        from "${project(':common:core').projectDir}/src/main/resources"
+        from "${project(':common:datasource').projectDir}/src/main/resources"
+
+        into "${project.buildDir}/resources/main"
+        exclude '**/rebel.xml'
+        includeEmptyDirs = true
+    }
+
+    afterEvaluate {
+        tasks.matching { t -> t.name.startsWith('process')
+        }.each { it.dependsOn(copyResources) }
+    }
+
+    tasks.named('bootBuildImage') {
+        builder = 'paketobuildpacks/builder:tiny'
+        environment = ['BP_NATIVE_IMAGE': 'true']
+    }
+}

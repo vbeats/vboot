@@ -1,0 +1,105 @@
+server:
+  compression:
+    enabled: true
+  error:
+    whitelabel:
+      enabled: false
+  undertow:
+    threads:
+      worker: 512
+      io: 16
+    buffer-size: 512B
+    direct-buffers: true
+  port: 8080
+
+# 日志配置
+logging:
+  level:
+    com.codestepfish: info
+    org.springframework: info
+  config: classpath:logback.xml
+
+# sa-token
+sa-token:
+  token-prefix: Bearer
+  token-name: Authorization
+  timeout: 7200
+  activity-timeout: 1800
+  token-style: uuid
+  is-read-body: false
+  is-read-header: true
+  is-concurrent: true
+  is-share: false
+  max-login-count: -1
+  is-read-cookie: false
+  auto-renew: true
+  is-print: false
+  jwt-secret-key: 'iZoE3JYiytVVm7xbONknlLoZP$O5lw8$2$3cXoae1uROhlJf4WVf7wa!fIYgruER'
+
+# spring web
+spring:
+  jackson:
+    default-property-inclusion: non_empty
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 100MB
+  mvc:
+    format:
+      date-time: yyyy-MM-dd HH:mm:ss
+
+  profiles:
+    active: dev
+
+  jpa:
+    open-in-view: false
+  # flyway 数据库版本控制
+  flyway:
+    enabled: true
+    clean-disabled: true
+    baseline-on-migrate: false
+    locations:
+      - classpath:db/migration
+
+# mybatis plus配置
+mybatis-plus:
+  configuration:
+    cache-enabled: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:mybatis/**/*.xml
+  global-config:
+    db-config:
+      id-type: assign_id
+
+# 分布式锁
+lock4j:
+  acquire-timeout: 3000
+  lock-key-prefix: log4j
+  expire: 30000
+  retry-interval: 100
+
+# swagger 配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.codestepfish
+
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+
+# xss 过滤
+xss:
+  enabled: true

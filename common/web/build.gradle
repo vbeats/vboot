@@ -1,0 +1,12 @@
+dependencies {
+    api project(':common:core')
+    api project(':common:redis')
+    api project(':common:swagger')
+    api libs.get('sa-token')
+    api libs.get('sa-token-aop')
+    api libs.get('el')
+    api libs.get('el-api')
+
+    api 'org.springframework.boot:spring-boot-starter-web'
+    api 'org.springframework.boot:spring-boot-starter-undertow'
+}

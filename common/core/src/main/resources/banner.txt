@@ -1,0 +1,1 @@
+${AnsiColor.BLUE}vboot :: ${spring.application.name} :: ${AnsiColor.BRIGHT_BLACK}Profile ${AnsiColor.RED}${spring.profiles.active}${AnsiColor.BLUE} :: Running SpringBoot ${spring-boot.version} :: ${AnsiColor.BRIGHT_BLACK} starting..... and listen on ${AnsiColor.RED}${server.port}

@@ -1,0 +1,21 @@
+pluginManagement {
+    repositories {
+        maven { url 'https://repo.spring.io/release' }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = 'vboot'
+
+// ------------common模块
+include 'common:core'
+include 'common:datasource'
+include 'common:redis'
+include 'common:web'
+include 'common:swagger'
+include 'common:auth'
+
+// -----------service业务服务  打包入口
+include 'service:demo'
+include 'service:admin'

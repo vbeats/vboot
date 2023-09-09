@@ -1,0 +1,6 @@
+dependencies {
+    implementation project(':common:datasource')
+    implementation project(':common:redis')
+    implementation project(':common:auth')
+    implementation project(':common:web')
+}
