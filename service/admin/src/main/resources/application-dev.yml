@@ -1,19 +1,62 @@
 spring:
+  #  sharding-jdbc
+  shardingsphere:
+    props:
+      sql-show: true
+    datasource:
+      names: ds_1,ds_2
+      ds_1:
+        url: jdbc:mysql://127.0.0.1:3306/app?characterEncoding=UTF-8&useSSL=false&autoReconnect=true&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: root
+        password: root
+        type: com.zaxxer.hikari.HikariDataSource
+      ds_2:
+        url: jdbc:mysql://127.0.0.1:3306/app?characterEncoding=UTF-8&useSSL=false&autoReconnect=true&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: root
+        password: root
+        type: com.zaxxer.hikari.HikariDataSource
+    rules:
+      readwrite-splitting:
+        data-sources:
+          readwrite_ds:
+            static-strategy:
+              write_data_source_name: ds_1
+              read-data-source-names:
+                - ds_1
+                - ds_2
+            load-balancer-name: round
+        load-balancers:
+          round:
+            type: ROUND_ROBIN
+
+  #  动态数据源
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/app?characterEncoding=UTF-8&useSSL=false&autoReconnect=true&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: root
-    hikari:
-      pool-name: vboot-pool
-      max-lifetime: 850000
-      validation-timeout: 1000
-      idle-timeout: 60000
-      minimum-idle: 5
-      maximum-pool-size: 25
-      connection-test-query: select 1
-      connection-timeout: 3000
-      keepalive-time: 30000
+    dynamic:
+      strict: false
+      primary: master
+      datasource:
+        master:
+          url: jdbc:mysql://127.0.0.1:3306/app?characterEncoding=UTF-8&useSSL=false&autoReconnect=true&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          username: root
+          password: root
+        slave:
+          url: jdbc:mysql://127.0.0.1:3306/app?characterEncoding=UTF-8&useSSL=false&autoReconnect=true&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          username: root
+          password: root
+      hikari:
+        pool-name: vboot-pool
+        max-lifetime: 850000
+        validation-timeout: 1000
+        idle-timeout: 60000
+        minimum-idle: 5
+        maximum-pool-size: 25
+        connection-test-query: select 1
+        connection-timeout: 3000
+        keepalive-time: 30000
 
   redis:
     redisson:

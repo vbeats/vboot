@@ -5,6 +5,8 @@ plugins {
 dependencies {
     api project(":common:core")
     api libs.get('mysql')
+    api libs.get('dynamic-datasource')
+    api libs.get('sharding-jdbc')
     api libs.get('mybatis')
     api libs.get('mybatis-plus')
     api libs.get('map-struct')
