@@ -16,9 +16,14 @@ public class RedisUtil {
      * @param value 缓存的值
      * @return set成功或失败
      */
-    public static <T> boolean setObjectIfAbsent(final String key, final T value, final Duration duration) {
-        RBucket<T> bucket = redissonClient.getBucket(key);
+    public static <T> boolean setIfAbsent(final String key, final T value, final Duration duration) {
+        RBucket<T> bucket = getBucket(key);
         return bucket.setIfAbsent(value, duration);
+    }
+
+    private static <T> RBucket<T> getBucket(String key) {
+        RBucket<T> bucket = redissonClient.getBucket(key);
+        return bucket;
     }
 
     /**
@@ -26,8 +31,12 @@ public class RedisUtil {
      *
      * @param key 缓存的键值
      */
-    public static boolean deleteObject(final String key) {
+    public static boolean delete(final String key) {
         return redissonClient.getBucket(key).delete();
     }
 
+    public static <T> T get(final String key) {
+        RBucket<T> bucket = redissonClient.getBucket(key);
+        return bucket.get();
+    }
 }

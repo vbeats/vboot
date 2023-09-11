@@ -9,7 +9,7 @@ import com.codestepfish.core.exception.AppException;
 import com.codestepfish.core.model.R;
 import com.codestepfish.core.model.RCode;
 import com.codestepfish.redis.util.RedisUtil;
-import com.codestepfish.web.annotation.RepeatSubmit;
+import com.codestepfish.core.annotation.RepeatSubmit;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -60,7 +60,7 @@ public class RepeatSubmitAspect {
         // 唯一标识（指定key + url + 消息头）
         String cacheRepeatKey = "repeat_submit:" + url + submitKey;
 
-        if (RedisUtil.setObjectIfAbsent(cacheRepeatKey, "", Duration.ofMillis(interval))) {
+        if (RedisUtil.setIfAbsent(cacheRepeatKey, "", Duration.ofMillis(interval))) {
             KEY_CACHE.set(cacheRepeatKey);
         } else {
             String message = repeatSubmit.message();
@@ -84,7 +84,7 @@ public class RepeatSubmitAspect {
                 if (RCode.SUCCESS.getCode().equals(r.getCode())) {
                     return;
                 }
-                RedisUtil.deleteObject(KEY_CACHE.get());
+                RedisUtil.delete(KEY_CACHE.get());
             } finally {
                 KEY_CACHE.remove();
             }
@@ -99,7 +99,7 @@ public class RepeatSubmitAspect {
      */
     @AfterThrowing(value = "@annotation(repeatSubmit)", throwing = "e")
     public void doAfterThrowing(JoinPoint joinPoint, RepeatSubmit repeatSubmit, Exception e) {
-        RedisUtil.deleteObject(KEY_CACHE.get());
+        RedisUtil.delete(KEY_CACHE.get());
         KEY_CACHE.remove();
     }
 

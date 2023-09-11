@@ -1,4 +1,4 @@
-package com.codestepfish.datasource.enums;
+package com.codestepfish.core.enums;
 
 import cn.hutool.core.util.DesensitizedUtil;
 import lombok.AllArgsConstructor;

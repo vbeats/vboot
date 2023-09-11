@@ -39,7 +39,7 @@ sa-token:
 # spring web
 spring:
   application:
-    name: admin
+    name: test
   jackson:
     default-property-inclusion: non_empty
     date-format: yyyy-MM-dd HH:mm:ss
@@ -75,6 +75,7 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: assign_id
+      logic-delete-field: del_flag
 
 # 分布式锁
 lock4j:

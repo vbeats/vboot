@@ -20,15 +20,17 @@ public class MybatisPlusConfig {
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
 
+        // 数据权限插件
+        //interceptor.addInnerInterceptor(new DataScopeInterceptor());
+
+        // 乐观锁插件
+        interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
+
         // 分页插件
         PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor(DbType.MYSQL);
         paginationInnerInterceptor.setMaxLimit(100L);   // 单页最大条数
         paginationInnerInterceptor.setOverflow(false);  // 页码超过后继续请求
-
         interceptor.addInnerInterceptor(paginationInnerInterceptor);
-
-        // 乐观锁插件
-        interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
 
         return interceptor;
     }

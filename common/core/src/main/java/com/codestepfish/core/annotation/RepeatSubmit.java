@@ -1,4 +1,4 @@
-package com.codestepfish.web.annotation;
+package com.codestepfish.core.annotation;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;

@@ -2,6 +2,7 @@ package com.codestepfish.web.aop;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.codestepfish.core.util.AppContextHolder;
 import com.google.common.base.Splitter;
@@ -38,7 +39,7 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class LogAspect {
 
-    private static final List<String> WORDS = Arrays.asList("authorization", "password", "newPassword");
+    private static final List<String> WORDS = Arrays.asList("authorization", "secret", "password", "newPassword");
     private final Environment env;
 
     @Around("execution(* com.codestepfish..*Controller.*(..)) || @within(org.springframework.web.bind.annotation.RestController))")
@@ -114,10 +115,10 @@ public class LogAspect {
             private String value;
         }
         List<Header> headers = new ArrayList<>();
-        // 过滤敏感数据
+        // 脱敏
         request.getHeaderNames().asIterator().forEachRemaining(s -> {
             String header = request.getHeader(s);
-            String value = WORDS.contains(s.toLowerCase()) && StringUtils.hasText(header) ? "***" + header.substring(header.length() - 3) : header;
+            String value = WORDS.contains(s.toLowerCase()) && StringUtils.hasText(header) ? StrUtil.hide(header, 1, header.length()) : header;
 
             headers.add(new Header(s, value));
         });
@@ -158,8 +159,9 @@ public class LogAspect {
             } else if (e instanceof BindingResult || e instanceof HttpServletRequest || e instanceof HttpServletResponse) {
                 // 不处理
             } else {
+                // 脱敏
                 BeanUtil.beanToMap(e, params, CopyOptions.create().ignoreNullValue().setFieldValueEditor((key, value) ->
-                        WORDS.contains(key.toLowerCase()) && !ObjectUtils.isEmpty(value) ? "***" + String.valueOf(value).substring(String.valueOf(value).length() - 3) : value));
+                        WORDS.contains(key.toLowerCase()) && !ObjectUtils.isEmpty(value) ? StrUtil.hide(String.valueOf(value), 1, String.valueOf(value).length()) : value));
             }
         });
 

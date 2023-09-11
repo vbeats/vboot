@@ -1,7 +1,7 @@
-package com.codestepfish.datasource.handler;
+package com.codestepfish.core.serializer;
 
-import com.codestepfish.datasource.annotation.Sensitive;
-import com.codestepfish.datasource.enums.SensitiveStrategy;
+import com.codestepfish.core.annotation.Sensitive;
+import com.codestepfish.core.enums.SensitiveStrategy;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.BeanProperty;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -14,7 +14,7 @@ import org.springframework.util.ObjectUtils;
 import java.io.IOException;
 
 @Slf4j
-public class SensitiveHandler extends JsonSerializer<String> implements ContextualSerializer {
+public class SensitiveSerializer extends JsonSerializer<String> implements ContextualSerializer {
 
     private SensitiveStrategy strategy;
 

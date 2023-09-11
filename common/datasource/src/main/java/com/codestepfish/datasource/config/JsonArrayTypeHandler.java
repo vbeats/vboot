@@ -1,6 +1,7 @@
 package com.codestepfish.datasource.config;
 
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONWriter;
 import com.baomidou.mybatisplus.extension.handlers.AbstractJsonTypeHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -10,26 +11,24 @@ import org.apache.ibatis.type.MappedTypes;
 import org.springframework.util.Assert;
 
 @Slf4j
-@MappedTypes({Object.class})
+@MappedTypes({JSONArray.class})
 @MappedJdbcTypes(JdbcType.VARCHAR)
-public class Fastjson2TypeHandler extends AbstractJsonTypeHandler<Object> {
+public class JsonArrayTypeHandler extends AbstractJsonTypeHandler<JSONArray> {
     private final Class<?> type;
 
-    public Fastjson2TypeHandler(Class<?> type) {
-        if (log.isTraceEnabled()) {
-            log.trace("Fastjson2TypeHandler(" + type + ")");
-        }
+    public JsonArrayTypeHandler(Class<?> type) {
         Assert.notNull(type, "Type argument cannot be null");
         this.type = type;
     }
 
+
     @Override
-    protected Object parse(String json) {
-        return JSON.parseObject(json, type);
+    protected JSONArray parse(String json) {
+        return JSON.parseArray(json);
     }
 
     @Override
-    protected String toJson(Object obj) {
+    protected String toJson(JSONArray obj) {
         return JSON.toJSONString(obj, JSONWriter.Feature.WriteMapNullValue, JSONWriter.Feature.WriteNullListAsEmpty, JSONWriter.Feature.WriteNullStringAsEmpty);
     }
 }
