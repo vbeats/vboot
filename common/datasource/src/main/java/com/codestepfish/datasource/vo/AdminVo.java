@@ -1,9 +1,9 @@
 package com.codestepfish.datasource.vo;
 
 import com.codestepfish.core.annotation.Sensitive;
+import com.codestepfish.core.enums.SensitiveStrategy;
 import com.codestepfish.datasource.entity.Admin;
 import com.codestepfish.datasource.enums.AccountType;
-import com.codestepfish.core.enums.SensitiveStrategy;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Getter;
@@ -30,8 +30,6 @@ public class AdminVo {
 
     private Long roleId;
 
-    private Long deptId;
-
     private Boolean status;
 
     private Boolean delFlag;
@@ -41,7 +39,5 @@ public class AdminVo {
     private LocalDateTime updateTime;
 
     private String roleName;
-
-    private String deptName;
 
 }

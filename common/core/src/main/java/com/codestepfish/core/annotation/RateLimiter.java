@@ -1,6 +1,7 @@
-package com.codestepfish.redis.annotation;
+package com.codestepfish.core.annotation;
 
-import com.codestepfish.redis.enums.LimitType;
+
+import com.codestepfish.core.enums.LimitType;
 
 import java.lang.annotation.*;
 

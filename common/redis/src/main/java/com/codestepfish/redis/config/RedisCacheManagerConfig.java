@@ -48,8 +48,8 @@ public class RedisCacheManagerConfig {
     CacheManager cacheManager(RedissonClient redissonClient) {
         return new RedissonSpringCacheManager(redissonClient) {
 
-            Map<String, CacheConfig> configMap = new ConcurrentHashMap<>();
-            ConcurrentMap<String, Cache> instanceMap = new ConcurrentHashMap<>();
+            final Map<String, CacheConfig> configMap = new ConcurrentHashMap<>();
+            final ConcurrentMap<String, Cache> instanceMap = new ConcurrentHashMap<>();
             private boolean transactionAware = true;
 
             @Override

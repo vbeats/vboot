@@ -11,7 +11,7 @@
  Target Server Version : 80100 (8.1.0)
  File Encoding         : 65001
 
- Date: 12/09/2023 11:38:36
+ Date: 12/09/2023 20:48:20
 */
 
 SET NAMES utf8mb4;
@@ -28,7 +28,6 @@ CREATE TABLE `admin`  (
   `phone` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '手机',
   `type` tinyint(1) NOT NULL COMMENT '账号类型',
   `role_id` bigint NOT NULL COMMENT '角色',
-  `dept_id` bigint NOT NULL COMMENT '机构',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态',
   `del_flag` tinyint(1) NOT NULL DEFAULT 0 COMMENT '删除标志',
   `create_time` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
@@ -39,7 +38,7 @@ CREATE TABLE `admin`  (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES (1, 'admin', 'bb56c470ae460af946c63633198bd997', '18800000000', 0, 1, 1, 1, 0, '2023-09-10 18:09:51.826', NULL);
+INSERT INTO `admin` VALUES (1, 'admin', 'bb56c470ae460af946c63633198bd997', '18800000000', 0, 1, 1, 0, '2023-09-10 18:09:51.826', NULL);
 
 -- ----------------------------
 -- Table structure for client
@@ -63,27 +62,6 @@ CREATE TABLE `client`  (
 -- Records of client
 -- ----------------------------
 INSERT INTO `client` VALUES (1, 'eb01cca7e09e4df0a0f88ee35bcd9647', 'ff70e7fe2ba841b8b626008e5e79aea2', '[\"password\"]', 'web', 1800, 7200, 0, '2023-09-10 18:14:35.576', NULL);
-
--- ----------------------------
--- Table structure for dept
--- ----------------------------
-DROP TABLE IF EXISTS `dept`;
-CREATE TABLE `dept`  (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '机构名称',
-  `pid` bigint NOT NULL DEFAULT 0 COMMENT '上级',
-  `pids` json NOT NULL COMMENT '父级集合',
-  `order_num` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '顺序',
-  `leader` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '负责人',
-  `phone` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '联系电话',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '机构' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of dept
--- ----------------------------
-INSERT INTO `dept` VALUES (1, 'xxx平台', 0, '[0]', 0, 'admin', '18800000000');
-INSERT INTO `dept` VALUES (2, '测试部门', 1, '[0, 1]', 0, '', '');
 
 -- ----------------------------
 -- Table structure for flyway_schema_history

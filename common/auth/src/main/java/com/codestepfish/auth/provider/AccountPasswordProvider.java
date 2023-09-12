@@ -3,7 +3,6 @@ package com.codestepfish.auth.provider;
 import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.util.ObjectUtil;
 import com.codestepfish.auth.dto.AuthParam;
 import com.codestepfish.auth.dto.AuthResponse;
 import com.codestepfish.auth.model.LoginUser;
@@ -19,7 +18,6 @@ import com.codestepfish.datasource.entity.Menu;
 import com.codestepfish.datasource.entity.Role;
 import com.codestepfish.datasource.service.AdminMapperService;
 import com.codestepfish.datasource.service.ClientMapperService;
-import com.codestepfish.datasource.service.DeptMapperService;
 import com.codestepfish.datasource.service.RoleMapperService;
 import com.codestepfish.redis.util.RedisUtil;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +29,6 @@ import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,7 +43,6 @@ public class AccountPasswordProvider implements AuthProvider {
     private final ClientMapperService clientMapperService;
     private final AdminMapperService adminMapperService;
     private final RoleMapperService roleMapperService;
-    private final DeptMapperService deptMapperService;
 
     @Override
     public AuthResponse handleAuth(AuthParam param) {
@@ -83,11 +79,6 @@ public class AccountPasswordProvider implements AuthProvider {
         // 菜单权限
         List<Menu> menus = roleMapperService.findMenusByRoleId(admin.getRoleId());
 
-        // 所有 有权限查看的机构
-        List<Long> deptIds = deptMapperService.findDeptIdsByPid(admin.getDeptId());
-        deptIds = ObjectUtil.defaultIfNull(deptIds, new ArrayList<>());
-        deptIds.add(admin.getDeptId());
-
         // token
         SaLoginModel model = new SaLoginModel()
                 .setDevice(client.getDeviceType())
@@ -95,8 +86,7 @@ public class AccountPasswordProvider implements AuthProvider {
                 .setTimeout(client.getTimeout())
                 .setExtra(AppConstants.CLIENT_ID, client.getClientId())
                 .setExtra(AppConstants.ROLE_KEY, role.getKey())
-                .setExtra(AppConstants.PERMS, menus.stream().map(Menu::getPerms).collect(Collectors.toList()))
-                .setExtra(AppConstants.DEPT_IDS, deptIds);
+                .setExtra(AppConstants.PERMS, menus.stream().map(Menu::getPerms).collect(Collectors.toList()));
 
         LoginHelper.login(BeanUtil.copyProperties(admin, LoginUser.class), model);
 

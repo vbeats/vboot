@@ -24,7 +24,7 @@ sa-token:
   token-prefix: Bearer
   token-name: Authorization
   timeout: 7200
-  activity-timeout: 1800
+  active-timeout: 1800
   token-style: uuid
   is-read-body: false
   is-read-header: true

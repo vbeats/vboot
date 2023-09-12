@@ -1,4 +1,4 @@
-package com.codestepfish.redis.enums;
+package com.codestepfish.core.enums;
 
 public enum LimitType {
     /**

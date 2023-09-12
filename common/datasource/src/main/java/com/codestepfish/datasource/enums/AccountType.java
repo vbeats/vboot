@@ -10,8 +10,8 @@ import lombok.Getter;
 @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
 public enum AccountType {
     ADMIN(0, "平台管理员"),
-    AGENT(1, "机构代理"),
-    MERCHANT(2, "商户"),
+    AGENT(1, "机构/代理"),
+    MERCHANT(2, "商户管理员"),
     EMPLOYEE(3, "员工");
 
     @EnumValue

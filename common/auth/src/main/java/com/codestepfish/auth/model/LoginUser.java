@@ -22,5 +22,4 @@ public class LoginUser implements Serializable {
 
     private Long roleId;
 
-    private Long deptId;
 }

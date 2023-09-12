@@ -8,7 +8,6 @@ import lombok.Setter;
 public class AppConstants {
 
     // *****************sa-token *********************
-    public static final String DEPT_IDS = "deptIds";  // 所属 机构 & 所有子级 id集合
     public static final String USER = "user";
     public static final String CLIENT_ID = "clientId";
     public static final String ROLE_KEY = "role";

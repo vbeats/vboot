@@ -1,8 +1,8 @@
 package com.codestepfish.datasource.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.codestepfish.datasource.enums.AccountType;
 import com.codestepfish.core.constant.AppConstants;
+import com.codestepfish.datasource.enums.AccountType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,8 +32,6 @@ public class Admin implements Serializable {
     private AccountType type;
 
     private Long roleId;
-
-    private Long deptId;
 
     @TableField(value = "`status`")
     private Boolean status;
