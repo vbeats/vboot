@@ -9,3 +9,7 @@
 ## discuss
 
 1. 客户端rate-limit限流 ( 通过 cloudflare traefik or 其它客户端网关 限流) 比在服务端限流更好 👻
+
+## next
+
+- [ ] 删除一切微型项目没必要的功能
