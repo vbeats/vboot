@@ -6,7 +6,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.codestepfish.auth.dto.AuthParam;
 import com.codestepfish.auth.dto.AuthResponse;
 import com.codestepfish.auth.model.LoginUser;
-import com.codestepfish.auth.util.LoginHelper;
+import com.codestepfish.auth.util.AuthUtil;
 import com.codestepfish.core.constant.AppConstants;
 import com.codestepfish.core.exception.AppException;
 import com.codestepfish.core.model.RCode;
@@ -88,7 +88,7 @@ public class AccountPasswordProvider implements AuthProvider {
                 .setExtra(AppConstants.ROLE_KEY, role.getKey())
                 .setExtra(AppConstants.PERMS, menus.stream().map(Menu::getPerms).collect(Collectors.toList()));
 
-        LoginHelper.login(BeanUtil.copyProperties(admin, LoginUser.class), model);
+        AuthUtil.login(BeanUtil.copyProperties(admin, LoginUser.class), model);
 
         return new AuthResponse(StpUtil.getTokenValue(), StpUtil.getTokenTimeout());
     }
