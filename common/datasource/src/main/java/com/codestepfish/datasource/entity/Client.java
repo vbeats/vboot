@@ -1,6 +1,9 @@
 package com.codestepfish.datasource.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.codestepfish.datasource.config.JsonArrayTypeHandler;
 import lombok.*;
 
@@ -16,7 +19,7 @@ import java.util.List;
 @TableName(value = "`client`", autoResultMap = true)
 public class Client implements Serializable {
 
-    @TableId(type = IdType.AUTO)
+    @TableId
     private Long id;
 
     private String clientId;

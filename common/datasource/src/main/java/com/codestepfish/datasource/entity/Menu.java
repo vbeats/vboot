@@ -1,6 +1,5 @@
 package com.codestepfish.datasource.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -16,7 +15,7 @@ import java.util.List;
 @TableName(value = "menu")
 public class Menu {
 
-    @TableId(type = IdType.AUTO)
+    @TableId
     private Long id;
 
     private Long pid;

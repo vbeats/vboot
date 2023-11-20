@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,7 +43,7 @@ public class MyDataSourceConfiguration {
     @Primary
     @Bean
     public DataSource dataSource() {
-        DynamicRoutingDataSource dataSource = new DynamicRoutingDataSource();
+        DynamicRoutingDataSource dataSource = new DynamicRoutingDataSource(Collections.singletonList(dynamicDataSourceProvider()));
         dataSource.setPrimary(properties.getPrimary());
         dataSource.setStrict(properties.getStrict());
         dataSource.setStrategy(properties.getStrategy());

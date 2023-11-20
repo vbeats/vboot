@@ -1,6 +1,6 @@
 package com.codestepfish.datasource.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
@@ -11,10 +11,13 @@ import lombok.Setter;
 @TableName(value = "lov")
 public class Lov {
 
-    @TableId(type = IdType.AUTO)
+    @TableId
     private Long id;
 
-    private String title;
+    @TableField(value = "`key`")
+    private String key;
 
-    private String category;
+    private String value;
+
+    private String remark;
 }

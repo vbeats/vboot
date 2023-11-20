@@ -9,7 +9,6 @@ import com.codestepfish.core.annotation.RepeatSubmit;
 import com.codestepfish.core.exception.AppException;
 import com.codestepfish.core.model.R;
 import com.codestepfish.core.model.RCode;
-import com.codestepfish.redis.util.RedisUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
