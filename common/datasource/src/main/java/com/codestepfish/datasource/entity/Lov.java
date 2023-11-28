@@ -14,6 +14,9 @@ public class Lov {
     @TableId
     private Long id;
 
+    @TableField(value = "`group`")
+    private String group;
+
     @TableField(value = "`key`")
     private String key;
 
