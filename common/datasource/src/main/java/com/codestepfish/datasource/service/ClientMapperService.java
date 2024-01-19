@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ClientMapperService extends ServiceImpl<ClientMapper, Client> implements IService<Client> {
 
-    @Cacheable(cacheNames = AppConstants.CACHE_CLIENT, key = "#clientId", unless = "#result!=null")
+    @Cacheable(cacheNames = AppConstants.CACHE_CLIENT, key = "#clientId", unless = "#result==null")
     public Client findClientByClientId(String clientId) {
         return getOne(Wrappers.<Client>lambdaQuery().eq(Client::getClientId, clientId));
     }

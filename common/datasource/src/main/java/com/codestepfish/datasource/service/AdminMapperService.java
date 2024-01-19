@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AdminMapperService extends ServiceImpl<AdminMapper, Admin> implements IService<Admin> {
 
-    @Cacheable(cacheNames = "cache:admin#30m#15m#1024", key = "#account", unless = "#result!=null")
+    @Cacheable(cacheNames = "cache:admin#30m#15m#1024", key = "#account", unless = "#result==null")
     public Admin findAdminByAccount(String account) {
         return getOne(Wrappers.<Admin>lambdaQuery().eq(Admin::getAccount, account));
     }
